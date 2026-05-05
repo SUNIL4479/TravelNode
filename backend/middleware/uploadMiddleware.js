@@ -1,15 +1,7 @@
 import multer from "multer";
 import path from "path";
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Relative to the process CWD (backend directory)
-    cb(null, "public/uploads/payments");
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = /jpeg|jpg|png/;

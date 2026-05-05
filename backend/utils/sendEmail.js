@@ -47,7 +47,7 @@ export const sendWelcomeEmail = async (to) => {
       <hr style="margin: 20px 0;" />
       <p style="color: #777;">TravelNode – Your Adventure Awaits</p>
       <p style="color: #999; font-size: 12px; margin-top: 20px;">
-         To unsubscribe, please click <a href="http://localhost:3050/api/subscribe/unsubscribe/${to}">here</a>.
+         To unsubscribe, please click <a href="${process.env.BACKEND_URL}/api/subscribe/unsubscribe/${to}">here</a>.
       </p>
     </div>
   `;
@@ -80,7 +80,7 @@ export const sendNewTourEmail = async (toEmails, tourDetails) => {
       <p><strong>Price:</strong> $${tourDetails.price}</p>
       <p><em>${tourDetails.desc ? tourDetails.desc.substring(0, 100) : ""}...</em></p>
       <div style="text-align: center; margin: 30px 0;">
-        <a href="http://localhost:5173/tours/${tourDetails._id}" style="background-color: #0b9e6f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">View Tour Details</a>
+        <a href="${process.env.FRONTEND_URL}/tours/${tourDetails._id}" style="background-color: #0b9e6f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">View Tour Details</a>
       </div>
       <hr style="margin: 20px 0;" />
       <p style="color: #777;">TravelNode – Your Adventure Awaits</p>

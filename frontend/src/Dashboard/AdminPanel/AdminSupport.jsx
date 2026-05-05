@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import BASE_URL from "../../utils/config";
+import BASE_URL, { BACKEND_URL } from "../../utils/config";
 import { toast } from "react-toastify";
 import { FiMessageSquare, FiSend, FiPaperclip, FiCheckCircle, FiLock, FiUnlock, FiAlertTriangle, FiUserX, FiUserCheck, FiSearch } from "react-icons/fi";
 
@@ -212,7 +212,7 @@ const AdminSupport = () => {
                        </div>
                     </button>
                   ))}
-                </div>
+                 </div>
              )}
            </div>
         </div>
@@ -232,7 +232,7 @@ const AdminSupport = () => {
                     <div className="flex items-center gap-4">
                        <div className="w-10 h-10 rounded-full bg-slate-200 overflow-hidden">
                           {thread?.userId?.photo ? (
-                             <img src={`http://localhost:3050${thread.userId.photo}`} alt="" className="w-full h-full object-cover"/>
+                             <img src={`${BACKEND_URL}${thread.userId.photo}`} alt="" className="w-full h-full object-cover"/>
                           ) : (
                              <div className="w-full h-full flex items-center justify-center text-text-muted font-bold text-lg">{thread?.userId?.username?.charAt(0).toUpperCase()}</div>
                           )}
@@ -283,7 +283,7 @@ const AdminSupport = () => {
                            {msg.messageText && <p className="whitespace-pre-wrap text-sm leading-relaxed">{msg.messageText}</p>}
                            
                            {msg.fileUrl && (
-                              <a href={`http://localhost:3050${msg.fileUrl}`} target="_blank" rel="noopener noreferrer" 
+                              <a href={`${BACKEND_URL}${msg.fileUrl}`} target="_blank" rel="noopener noreferrer" 
                                  className={`mt-2 flex items-center gap-2 p-2 rounded-lg text-sm transition-colors border ${isAdmin ? 'bg-forest-900/50 border-forest-700 hover:bg-forest-900' : 'bg-slate-100 border-slate-200 hover:bg-slate-200'}`}>
                                 <FiPaperclip /> View Attached File
                               </a>
