@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FiCheck, FiX, FiExternalLink, FiEye, FiSearch, FiFilter } from "react-icons/fi";
 import { toast } from "react-toastify";
-import BASE_URL from "../../utils/config";
+import BASE_URL, { BACKEND_URL } from "../../utils/config";
 import { AuthContext } from "../../context/AuthContext";
 
 const AdminPayments = () => {
@@ -37,59 +37,43 @@ const AdminPayments = () => {
   };
 
   const handleVerify = async (paymentId, status) => {
-    console.log("-> [START] handleVerify for:", { paymentId, status });
-    
-    // Using a more reliable state-based approach for IDs and tokens
     setProcessingId(paymentId);
     
     try {
-      const activeToken = localStorage.getItem("token") || token;
-      console.log("-> Token Status:", activeToken ? "Found" : "Missing");
-      
-      if (!activeToken) {
-        alert("CRITICAL ERROR: No authentication token found. Please logout and login again.");
-        setProcessingId(null);
-        return;
-      }
-
-      console.log("-> Preparing fetch for URL:", `${BASE_URL}/payment/verify`);
-      
       const res = await fetch(`${BASE_URL}/payment/verify`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${activeToken}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({ paymentId, status }),
       });
 
-      console.log("-> Fetch attempted. Status code:", res.status);
       const result = await res.json();
-      console.log("-> Server Response:", result);
       
       if (res.ok) {
-        alert(`✓ SUCCESS: Payment successfully ${status === 'paid' ? 'Approved' : 'Rejected'}!`);
-        toast.success(`Payment updated!`);
-        setFilter(status);
+        toast.success(`Payment updated successfully!`);
         fetchPayments();
       } else {
-        console.error("-> Verification error details:", result);
-        alert(`Verification Failed: ${result.message || "Unknown error"}`);
         toast.error(result.message || "Action failed");
       }
     } catch (err) {
-      console.error("-> FATAL Fetch Failure:", err);
-      alert("Network Connection Error: The server could not be reached. Please check if the backend is running.");
+      console.error(err);
       toast.error("Network error. Please try again.");
     } finally {
       setProcessingId(null);
-      console.log("-> [FINISH] handleVerify execution complete.");
     }
   };
 
   const filteredPayments = filter === "all" 
     ? payments 
     : payments.filter(p => p.status === filter);
+
+  const getImageUrl = (path) => {
+    if (!path) return "https://via.placeholder.com/600x400?text=No+Image";
+    if (path.startsWith("http")) return path; // Cloudinary URL
+    return `${BACKEND_URL}${path}`; // Local path
+  };
 
   if (loading) {
     return <div className="flex justify-center items-center h-64"><div className="spinner"></div></div>;
@@ -100,10 +84,7 @@ const AdminPayments = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-display-sm text-text-primary">Payment Verifications</h2>
-              <span className="px-2 py-0.5 bg-forest-100 text-forest-600 text-[10px] font-bold rounded-full uppercase tracking-wider">v1.0.4</span>
-            </div>
+            <h2 className="text-display-sm text-text-primary">Payment Verifications</h2>
             <p className="text-body-sm text-text-secondary">Verify manual payment proofs submitted by travelers.</p>
           </div>
           <div className="flex items-center gap-3">
@@ -211,23 +192,23 @@ const AdminPayments = () => {
 
       {/* Image Preview Modal */}
       {selectedImage && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setSelectedImage(null)}>
-          <div className="relative max-w-4xl max-h-[90vh] bg-white rounded-3xl overflow-hidden p-2 shadow-2xl animate-scale-up" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={() => setSelectedImage(null)}>
+          <div className="relative max-w-4xl max-h-[90vh] bg-white rounded-3xl overflow-hidden p-2 shadow-2xl" onClick={e => e.stopPropagation()}>
             <button onClick={() => setSelectedImage(null)} className="absolute top-4 right-4 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors">
               <FiX />
             </button>
             <img 
-              src={`${window.location.protocol}//${window.location.hostname}:3050${selectedImage}`} 
+              src={getImageUrl(selectedImage)} 
               alt="Payment Proof" 
               className="max-w-full max-h-[85vh] object-contain rounded-2xl"
               onError={(e) => {
                 e.target.src = "https://via.placeholder.com/600x400?text=Proof+Image+Not+Found";
-                toast.error("Image not found locally. It might be due to path configuration.");
+                toast.error("Image not found. It might be due to path configuration.");
               }}
             />
             <div className="p-4 bg-white flex justify-center">
                <a 
-                href={`${window.location.protocol}//${window.location.hostname}:3050${selectedImage}`}
+                href={getImageUrl(selectedImage)}
                 target="_blank" 
                 rel="noreferrer"
                 className="btn-cta text-xs flex items-center gap-2"

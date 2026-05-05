@@ -1,15 +1,26 @@
 import Payment from "../models/Payment.js";
 import Booking from "../models/Booking.js";
+import { uploadToCloudinary } from "../utils/cloudinary.js";
 
 // Submit payment proof
 const submitPayment = async (req, res) => {
   try {
     const { bookingId, userId, amount, transactionId } = req.body;
-    const paymentProof = req.file ? `/public/uploads/payments/${req.file.filename}` : null;
-
-    if (!paymentProof) {
+    
+    if (!req.file) {
       return res.status(400).json({ success: false, message: "Payment proof image is required" });
     }
+
+    // Upload to Cloudinary
+    let cloudinaryRes;
+    try {
+      cloudinaryRes = await uploadToCloudinary(req.file.buffer, req.file.mimetype, "payments");
+    } catch (uploadError) {
+      console.error("Cloudinary Upload Error:", uploadError);
+      return res.status(500).json({ success: false, message: "Failed to upload image to Cloudinary" });
+    }
+
+    const paymentProof = cloudinaryRes.secure_url;
 
     // Check if a payment for this booking already exists and is pending
     let payment = await Payment.findOne({ bookingId });
