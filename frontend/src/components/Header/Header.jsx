@@ -220,7 +220,7 @@ const Header = () => {
 
       {/* Mobile Overlay */}
       <div
-        className={`fixed inset-0 bg-forest-900/40 backdrop-blur-sm z-40 transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 bg-forest-900/60 backdrop-blur-md z-[60] transition-opacity duration-300 lg:hidden ${
           isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={handleMenuToggle}
@@ -228,7 +228,7 @@ const Header = () => {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-[320px] bg-white shadow-elevated z-50 transform transition-transform duration-300 ease-smooth lg:hidden ${
+        className={`fixed top-0 right-0 h-full w-[280px] xs:w-[320px] bg-white shadow-elevated z-[70] transform transition-transform duration-300 ease-smooth lg:hidden ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

@@ -122,70 +122,133 @@ const AdminPayments = () => {
             <p className="text-body-sm text-text-secondary">No payments matching your current filter.</p>
           </div>
         ) : (
-          <div className="overflow-hidden rounded-2xl border border-border-light bg-white shadow-sm">
-            <table className="w-full text-left">
-              <thead className="bg-forest-50 border-b border-border-light">
-                <tr>
-                  <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Trip / User</th>
-                  <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Amount</th>
-                  <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Transaction ID</th>
-                  <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Proof</th>
-                  <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Status</th>
-                  <th className="px-6 py-4 text-right text-caption font-bold text-text-muted uppercase tracking-wider">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border-light">
-                {filteredPayments.map((payment) => (
-                  <tr key={payment._id} className="hover:bg-forest-50/50 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="font-bold text-text-primary">{payment.bookingId?.tourName || "N/A"}</div>
-                      <div className="text-caption text-text-secondary">{payment.userId?.username || "Unknown"}</div>
-                    </td>
-                    <td className="px-6 py-4 font-bold text-primary">₹{payment.amount}</td>
-                    <td className="px-6 py-4 font-mono text-caption">{payment.transactionId}</td>
-                    <td className="px-6 py-4">
-                      <button 
-                        onClick={() => setSelectedImage(payment.paymentProof)}
-                        className="btn-secondary !py-1.5 !px-3 !text-xs flex items-center gap-1.5"
-                      >
-                        <FiEye /> View Proof
-                      </button>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className={`badge ${
-                        payment.status === "paid" ? "bg-success/10 text-success" : 
-                        payment.status === "failed" ? "bg-danger/10 text-danger" : 
-                        "bg-sky-100 text-sky-800"
-                      }`}>
-                        {payment.status.replace("_", " ")}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      {payment.status === "pending_verification" && (
-                        <div className="flex justify-end gap-2">
-                          <button 
-                            onClick={() => handleVerify(payment._id, "paid")}
-                            disabled={processingId === payment._id}
-                            className={`p-2 rounded-lg transition-all ${processingId === payment._id ? "bg-gray-100 text-gray-400" : "bg-success/10 text-success hover:bg-success hover:text-white"}`}
-                            title="Approve"
-                          >
-                            {processingId === payment._id ? <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-500 rounded-full animate-spin" /> : <FiCheck />}
-                          </button>
-                          <button 
-                            onClick={() => handleVerify(payment._id, "failed")}
-                            disabled={processingId === payment._id}
-                            className={`p-2 rounded-lg transition-all ${processingId === payment._id ? "bg-gray-100 text-gray-400" : "bg-danger/10 text-danger hover:bg-danger hover:text-white"}`}
-                            title="Reject"
-                          >
-                            <FiX />
-                          </button>
-                        </div>
-                      )}
-                    </td>
+          <div className="card overflow-hidden">
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left">
+                <thead className="bg-forest-50 border-b border-border-light">
+                  <tr>
+                    <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Trip / User</th>
+                    <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Amount</th>
+                    <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Transaction ID</th>
+                    <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Proof</th>
+                    <th className="px-6 py-4 text-caption font-bold text-text-muted uppercase">Status</th>
+                    <th className="px-6 py-4 text-right text-caption font-bold text-text-muted uppercase tracking-wider">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-border-light">
+                  {filteredPayments.map((payment) => (
+                    <tr key={payment._id} className="hover:bg-forest-50/50 transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="font-bold text-text-primary">{payment.bookingId?.tourName || "N/A"}</div>
+                        <div className="text-caption text-text-secondary">{payment.userId?.username || "Unknown"}</div>
+                      </td>
+                      <td className="px-6 py-4 font-bold text-primary">₹{payment.amount}</td>
+                      <td className="px-6 py-4 font-mono text-caption">{payment.transactionId}</td>
+                      <td className="px-6 py-4">
+                        <button 
+                          onClick={() => setSelectedImage(payment.paymentProof)}
+                          className="btn-secondary !py-1.5 !px-3 !text-xs flex items-center gap-1.5"
+                        >
+                          <FiEye /> View Proof
+                        </button>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className={`badge ${
+                          payment.status === "paid" ? "bg-success/10 text-success" : 
+                          payment.status === "failed" ? "bg-danger/10 text-danger" : 
+                          "bg-sky-100 text-sky-800"
+                        }`}>
+                          {payment.status.replace("_", " ")}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        {payment.status === "pending_verification" && (
+                          <div className="flex justify-end gap-2">
+                            <button 
+                              onClick={() => handleVerify(payment._id, "paid")}
+                              disabled={processingId === payment._id}
+                              className={`p-2 rounded-lg transition-all ${processingId === payment._id ? "bg-gray-100 text-gray-400" : "bg-success/10 text-success hover:bg-success hover:text-white"}`}
+                              title="Approve"
+                            >
+                              {processingId === payment._id ? <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-500 rounded-full animate-spin" /> : <FiCheck />}
+                            </button>
+                            <button 
+                              onClick={() => handleVerify(payment._id, "failed")}
+                              disabled={processingId === payment._id}
+                              className={`p-2 rounded-lg transition-all ${processingId === payment._id ? "bg-gray-100 text-gray-400" : "bg-danger/10 text-danger hover:bg-danger hover:text-white"}`}
+                              title="Reject"
+                            >
+                              <FiX />
+                            </button>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden divide-y divide-border-light">
+              {filteredPayments.map((payment) => (
+                <div key={payment._id} className="p-5 flex flex-col gap-4 bg-white">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="font-bold text-text-primary text-body-md">{payment.bookingId?.tourName || "N/A"}</p>
+                      <p className="text-xs text-text-muted">User: {payment.userId?.username || "Unknown"}</p>
+                    </div>
+                    <span className={`badge text-[10px] uppercase tracking-wider font-bold ${
+                      payment.status === "paid" ? "bg-success/10 text-success" : 
+                      payment.status === "failed" ? "bg-danger/10 text-danger" : 
+                      "bg-sky-100 text-sky-800"
+                    }`}>
+                      {payment.status.replace("_", " ")}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 py-3 border-y border-forest-50/50">
+                    <div>
+                      <p className="text-[10px] text-text-muted font-bold uppercase mb-1">Amount</p>
+                      <p className="text-body-md font-bold text-primary">₹{payment.amount}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[10px] text-text-muted font-bold uppercase mb-1">Transaction ID</p>
+                      <p className="text-xs font-mono text-text-secondary">{payment.transactionId}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-3 pt-1">
+                    <button 
+                      onClick={() => setSelectedImage(payment.paymentProof)}
+                      className="btn-secondary !py-2 !px-4 !text-xs flex items-center gap-2"
+                    >
+                      <FiEye /> View Proof
+                    </button>
+                    
+                    {payment.status === "pending_verification" && (
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => handleVerify(payment._id, "paid")}
+                          disabled={processingId === payment._id}
+                          className="p-2 bg-success/10 text-success rounded-xl hover:bg-success hover:text-white transition-all shadow-sm border border-success/20"
+                        >
+                          <FiCheck />
+                        </button>
+                        <button 
+                          onClick={() => handleVerify(payment._id, "failed")}
+                          disabled={processingId === payment._id}
+                          className="p-2 bg-danger/10 text-danger rounded-xl hover:bg-danger hover:text-white transition-all shadow-sm border border-danger/20"
+                        >
+                          <FiX />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

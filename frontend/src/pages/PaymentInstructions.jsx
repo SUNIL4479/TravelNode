@@ -116,7 +116,7 @@ const PaymentInstructions = () => {
                   <span className="font-bold">TravelNode Private Limited</span>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
                   <div className="p-4 bg-white/10 rounded-xl border border-white/10">
                     <span className="text-caption text-forest-200 block mb-1">Bank Name</span>
                     <span className="font-bold">HDFC Bank</span>
@@ -157,7 +157,7 @@ const PaymentInstructions = () => {
 
           {/* Upload Form Column */}
           <div className="md:col-span-2">
-            <div className="card p-8 shadow-elevated sticky top-24">
+            <div className="card p-8 shadow-elevated md:sticky md:top-24">
               <h3 className="text-body-lg font-bold text-text-primary mb-6">Upload Proof</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">

@@ -76,28 +76,28 @@ const Home = () => {
 
                 {/* Content */}
                 <div className="relative h-full max-w-7xl mx-auto px-5 lg:px-8 flex items-center">
-                  <div className="max-w-2xl pt-16">
+                  <div className="max-w-2xl pt-24 md:pt-16">
                     <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-caption font-semibold text-cta mb-6">
                       <span className="w-1.5 h-1.5 bg-cta rounded-full animate-pulse" />
                       {slide.overline}
                     </span>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight whitespace-pre-line mb-6">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight whitespace-pre-line mb-6">
                       {slide.title}
                     </h1>
 
-                    <p className="text-body-lg text-white/80 max-w-lg mb-8 leading-relaxed">
+                    <p className="text-body-md md:text-body-lg text-white/80 max-w-lg mb-8 leading-relaxed">
                       {slide.subtitle}
                     </p>
 
                     <div className="flex flex-wrap gap-3">
-                      <Link to="/tours" className="btn-cta-lg group">
+                      <Link to="/tours" className="btn-cta-lg !px-6 !py-3 md:!px-8 md:!py-4 group">
                         Explore Tours
                         <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                       </Link>
                       <Link
                         to="/my-trips"
-                        className="btn px-8 py-4 text-body-lg bg-white/10 backdrop-blur-sm border border-white/25 text-white hover:bg-white/20 transition-all"
+                        className="btn px-6 py-3 md:px-8 md:py-4 text-body-md md:text-body-lg bg-white/10 backdrop-blur-sm border border-white/25 text-white hover:bg-white/20 transition-all"
                       >
                         Plan a Trip
                       </Link>
@@ -110,9 +110,9 @@ const Home = () => {
         </Swiper>
 
         {/* Stats Bar */}
-        <div className="absolute bottom-0 left-0 right-0 z-10">
+        <div className="absolute bottom-0 left-0 right-0 z-10 translate-y-1/2 md:translate-y-0">
           <div className="max-w-7xl mx-auto px-5 lg:px-8">
-            <div className="bg-white/95 backdrop-blur-md rounded-t-2xl shadow-elevated grid grid-cols-3 divide-x divide-border-light">
+            <div className="bg-white/95 backdrop-blur-md rounded-2xl md:rounded-t-2xl md:rounded-b-none shadow-elevated grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border-light">
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
@@ -203,15 +203,15 @@ const Home = () => {
                 create lasting memories and meaningful connections.
               </p>
 
-              <div className="grid grid-cols-3 gap-6 mb-8">
+              <div className="grid grid-cols-1 xs:grid-cols-3 gap-4 md:gap-6 mb-8">
                 {[
                   { value: "12K+", label: "Travelers" },
                   { value: "500+", label: "Tours" },
                   { value: "15+", label: "Years" },
                 ].map((stat, i) => (
-                  <div key={i} className="text-center p-4 bg-forest-50 rounded-2xl">
+                  <div key={i} className="text-center p-4 bg-forest-50 rounded-2xl border border-border-light/50">
                     <p className="text-display-sm text-primary">{stat.value}</p>
-                    <p className="text-caption text-text-muted mt-1">{stat.label}</p>
+                    <p className="text-caption text-text-muted mt-1 uppercase font-bold tracking-wider">{stat.label}</p>
                   </div>
                 ))}
               </div>

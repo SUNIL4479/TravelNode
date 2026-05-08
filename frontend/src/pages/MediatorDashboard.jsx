@@ -161,7 +161,8 @@ const MediatorDashboard = () => {
                         <h3 className="text-body-lg font-bold text-primary">Recent Bookings</h3>
                     </div>
                     
-                    <div className="overflow-x-auto">
+                    {/* Desktop Table View */}
+                    <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="border-b border-border-light bg-white text-caption font-bold text-text-muted uppercase tracking-wider">
@@ -228,6 +229,62 @@ const MediatorDashboard = () => {
                                 )}
                             </tbody>
                         </table>
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="md:hidden divide-y divide-border-light">
+                        {bookings.length === 0 ? (
+                            <div className="px-6 py-8 text-center text-text-secondary text-body-sm">
+                                No recent bookings found.
+                            </div>
+                        ) : (
+                            bookings.map((booking) => (
+                                <div key={booking._id} className="p-5 flex flex-col gap-4 bg-white hover:bg-forest-50/20 transition-colors">
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <p className="font-bold text-text-primary text-body-md">{booking.tourName}</p>
+                                            <p className="text-xs text-text-muted mt-0.5">{booking.startDate} - {booking.endDate}</p>
+                                        </div>
+                                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider
+                                            ${booking.status === 'completed' ? 'bg-forest-100 text-forest-800' : 
+                                              booking.status === 'pending' ? 'bg-amber-100 text-amber-800' : 
+                                              'bg-gray-100 text-gray-800'}`}
+                                        >
+                                            {booking.status}
+                                        </span>
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-4 py-3 border-y border-forest-50">
+                                        <div>
+                                            <p className="text-[10px] text-text-muted font-bold uppercase mb-1">Client</p>
+                                            <p className="text-body-sm font-semibold text-text-primary">{booking.fullName}</p>
+                                            <p className="text-xs text-text-muted">{booking.phone}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-[10px] text-text-muted font-bold uppercase mb-1">Earnings</p>
+                                            <p className="text-body-md font-bold text-primary">₹{booking.mediatorEarnings}</p>
+                                            <p className="text-xs text-text-secondary font-medium">{booking.hours} hrs</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-end pt-1">
+                                        {booking.status === 'pending' && (
+                                            <button
+                                                onClick={() => handleStatusUpdate(booking._id, 'completed')}
+                                                className="btn-primary w-full !py-2.5 !text-xs !rounded-xl"
+                                            >
+                                                Mark as Completed
+                                            </button>
+                                        )}
+                                        {booking.status === 'completed' && (
+                                            <span className="text-xs text-text-muted font-bold flex items-center gap-1.5 bg-forest-50 px-3 py-1.5 rounded-lg">
+                                                <FiCheckCircle className="text-success w-4 h-4" /> COMPLETED
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
                 </>

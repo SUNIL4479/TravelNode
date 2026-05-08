@@ -129,8 +129,8 @@ const Contact = () => {
 
   // --- AUTHENTICATED CHAT VIEW ---
   return (
-    <section className="bg-background min-h-screen py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto flex flex-col h-[80vh] bg-white rounded-2xl border border-border-light shadow-elevated overflow-hidden">
+    <section className="bg-background min-h-screen py-16 md:py-24 px-2 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto flex flex-col h-[85vh] md:h-[80vh] bg-white rounded-2xl border border-border-light shadow-elevated overflow-hidden">
         
         {/* Header */}
         <div className="bg-forest-900 px-6 py-4 flex items-center justify-between shadow-md z-10 w-full flex-shrink-0">

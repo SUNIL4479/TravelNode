@@ -48,7 +48,7 @@ const SearchBar = () => {
     <div className="relative -mt-8 z-30 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="card-elevated p-5 md:p-6">
-          <div className="grid md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Location */}
             <div>
               <label className="form-label flex items-center gap-1.5">
@@ -59,7 +59,7 @@ const SearchBar = () => {
                 type="text"
                 placeholder="Where are you going?"
                 ref={cityRef}
-                className="form-input"
+                className="form-input !py-2.5 text-sm"
               />
             </div>
 
@@ -73,7 +73,7 @@ const SearchBar = () => {
                 type="number"
                 placeholder="₹ Min"
                 ref={minPriceRef}
-                className="form-input"
+                className="form-input !py-2.5 text-sm"
               />
             </div>
 
@@ -87,7 +87,7 @@ const SearchBar = () => {
                 type="number"
                 placeholder="₹ Max"
                 ref={maxPriceRef}
-                className="form-input"
+                className="form-input !py-2.5 text-sm"
               />
             </div>
 
@@ -96,17 +96,17 @@ const SearchBar = () => {
               <button
                 onClick={SubmitHandler}
                 disabled={isSearching}
-                className="w-full btn-cta"
+                className="w-full btn-cta !py-2.5"
               >
                 {isSearching ? (
                   <>
                     <span className="spinner-cta" />
-                    Searching...
+                    <span className="text-sm">Searching...</span>
                   </>
                 ) : (
                   <>
                     <FiSearch className="w-4 h-4" />
-                    Search
+                    <span className="text-sm">Search</span>
                   </>
                 )}
               </button>

@@ -17,7 +17,7 @@ const NotFound = () => {
           </div>
           <div className="relative">
             <FiAlertTriangle className="w-20 h-20 text-accent mx-auto mb-6 animate-bounce" />
-            <h1 className="text-[120px] leading-none font-black text-primary relative drop-shadow-sm">
+            <h1 className="text-7xl sm:text-8xl md:text-[120px] leading-none font-black text-primary relative drop-shadow-sm">
               4<span className="text-cta">0</span>4
             </h1>
           </div>

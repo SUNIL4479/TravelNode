@@ -22,7 +22,8 @@ const Bookings = () => {
         </div>
 
         <div className="card overflow-hidden">
-          <div className="overflow-x-auto">
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead className="bg-forest-50 border-b border-border-light table-header">
                 <tr>
@@ -39,10 +40,17 @@ const Bookings = () => {
               </thead>
               <tbody className="divide-y divide-border-light">
                 {bookings?.map((booking) => (
-                  <AdminBookingCard booking={booking} key={booking._id} />
+                  <AdminBookingCard booking={booking} key={booking._id} displayMode="row" />
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden divide-y divide-border-light">
+            {bookings?.map((booking) => (
+              <AdminBookingCard booking={booking} key={booking._id} displayMode="card" />
+            ))}
           </div>
         </div>
       </div>

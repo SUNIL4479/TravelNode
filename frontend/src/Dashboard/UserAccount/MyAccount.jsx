@@ -63,7 +63,7 @@ const MyAccount = () => {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Profile Sidebar */}
           <div className="lg:col-span-1">
-            <div className="card overflow-hidden sticky top-32">
+            <div className="card overflow-hidden lg:sticky lg:top-32">
               {/* Header with gradient */}
               <div className="h-32 bg-gradient-forest"></div>
 
