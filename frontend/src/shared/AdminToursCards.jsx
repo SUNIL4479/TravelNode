@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
-const AdminToursCards = ({ tour }) => {
+const AdminToursCards = ({ tour, displayMode = "row" }) => {
   const { token } = useContext(AuthContext);
   const { title, city, maxGroupSize, featured, reviews, photo, _id } = tour;
 
@@ -37,49 +37,87 @@ const AdminToursCards = ({ tour }) => {
     }
   };
 
+  if (displayMode === "row") {
+    return (
+      <tr className="table-row">
+        <td>
+          <img
+            src={photo}
+            alt={title}
+            className="w-14 h-14 object-cover rounded-xl border border-border-light"
+          />
+        </td>
+        <td className="font-medium">{title}</td>
+        <td>{city}</td>
+        <td>
+          <span
+            className={`badge ${
+              featured
+                ? "bg-forest-100 text-forest-700"
+                : "bg-gray-100 text-gray-600"
+            }`}
+          >
+            {featured ? "Yes" : "No"}
+          </span>
+        </td>
+        <td>{maxGroupSize}</td>
+        <td>{reviews?.length || 0}</td>
+        <td>
+          <div className="flex items-center gap-1.5">
+            <Link
+              to={`/update-tour/${_id}`}
+              className="btn-icon !p-2"
+              title="Edit"
+            >
+              <FiEdit2 className="w-4 h-4" />
+            </Link>
+            <button
+              onClick={handleDelete}
+              className="p-2 rounded-xl text-danger bg-red-50 hover:bg-red-100 transition-colors"
+              title="Delete"
+            >
+              <FiTrash2 className="w-4 h-4" />
+            </button>
+          </div>
+        </td>
+      </tr>
+    );
+  }
+
   return (
-    <tr className="table-row">
-      <td>
-        <img
-          src={photo}
-          alt={title}
-          className="w-14 h-14 object-cover rounded-xl border border-border-light"
-        />
-      </td>
-      <td className="font-medium">{title}</td>
-      <td>{city}</td>
-      <td>
-        <span
-          className={`badge ${
-            featured
-              ? "bg-forest-100 text-forest-700"
-              : "bg-gray-100 text-gray-600"
-          }`}
-        >
-          {featured ? "Yes" : "No"}
-        </span>
-      </td>
-      <td>{maxGroupSize}</td>
-      <td>{reviews?.length || 0}</td>
-      <td>
-        <div className="flex items-center gap-1.5">
+    <div className="p-5 flex gap-4 bg-white hover:bg-forest-50/20 transition-colors">
+      <img
+        src={photo}
+        alt={title}
+        className="w-20 h-20 object-cover rounded-2xl border border-border-light shadow-sm"
+      />
+      <div className="flex-1 min-w-0">
+        <div className="flex justify-between items-start mb-1">
+          <h3 className="text-body-md font-bold text-text-primary truncate pr-2">{title}</h3>
+          <span className={`badge text-[10px] uppercase font-bold ${featured ? "bg-forest-100 text-forest-700" : "bg-gray-100 text-gray-600"}`}>
+            {featured ? "Featured" : "Regular"}
+          </span>
+        </div>
+        <p className="text-xs text-text-secondary flex items-center gap-1 mb-3">
+          <span className="font-semibold">{city}</span> • {maxGroupSize} persons • {reviews?.length || 0} reviews
+        </p>
+        <div className="flex items-center gap-2">
           <Link
             to={`/update-tour/${_id}`}
-            className="btn-icon !p-2"
-            title="Edit"
+            className="btn-secondary !py-1.5 !px-3 !text-xs flex items-center gap-1.5"
           >
-            <FiEdit2 className="w-4 h-4" />
+            <FiEdit2 className="w-3.5 h-3.5" /> Edit
           </Link>
           <button
             onClick={handleDelete}
-            className="p-2 rounded-xl text-danger bg-red-50 hover:bg-red-100 transition-colors"
+            className="p-1.5 rounded-lg text-danger bg-red-50 hover:bg-red-100 transition-colors ml-auto"
             title="Delete"
           >
-            <FiTrash2 className="w-4 h-4" />
+            <FiTrash2 className="w-3.5 h-3.5" />
           </button>
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 };
 

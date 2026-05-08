@@ -71,7 +71,7 @@ const ImagesGallery = () => {
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 auto-rows-[250px] lg:auto-rows-[300px]">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[160px] xs:auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[300px]">
         {Images.map((item, index) => (
           <div
             key={index}
@@ -148,7 +148,7 @@ const ImagesGallery = () => {
               />
 
               {/* Minimal Caption */}
-              <div className="absolute bottom-6 sm:-bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-forest-900/60 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full text-white">
+              <div className="absolute -bottom-16 md:-bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-forest-900/60 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full text-white whitespace-nowrap">
                 <span className="font-semibold">{Images[selectedImage].alt}</span>
                 <span className="w-1.5 h-1.5 bg-white/30 rounded-full" />
                 <span className="text-forest-300 flex items-center">
@@ -162,7 +162,7 @@ const ImagesGallery = () => {
             {selectedImage > 0 && (
               <button
                 onClick={() => setSelectedImage(selectedImage - 1)}
-                className="absolute left-4 lg:left-10 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-forest-900 text-white transition-all duration-300 group"
+                className="absolute left-2 md:left-4 lg:left-10 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-forest-900 text-white transition-all duration-300 group"
                 aria-label="Previous"
               >
                 <FiChevronLeft className="w-7 h-7 group-hover:-translate-x-1 transition-transform" />
@@ -172,7 +172,7 @@ const ImagesGallery = () => {
             {selectedImage < Images.length - 1 && (
               <button
                 onClick={() => setSelectedImage(selectedImage + 1)}
-                className="absolute right-4 lg:right-10 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-forest-900 text-white transition-all duration-300 group"
+                className="absolute right-2 md:right-4 lg:right-10 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center hover:bg-white hover:text-forest-900 text-white transition-all duration-300 group"
                 aria-label="Next"
               >
                 <FiChevronRight className="w-7 h-7 group-hover:translate-x-1 transition-transform" />

@@ -24,7 +24,8 @@ const AdminTours = () => {
         </div>
 
         <div className="card overflow-hidden">
-          <div className="overflow-x-auto">
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead className="bg-forest-50 border-b border-border-light table-header">
                 <tr>
@@ -39,10 +40,17 @@ const AdminTours = () => {
               </thead>
               <tbody className="divide-y divide-border-light">
                 {tours?.map((tour) => (
-                  <AdminToursCards tour={tour} key={tour._id} />
+                  <AdminToursCards tour={tour} key={tour._id} displayMode="row" />
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden divide-y divide-border-light">
+            {tours?.map((tour) => (
+              <AdminToursCards tour={tour} key={tour._id} displayMode="card" />
+            ))}
           </div>
 
           {/* Pagination */}

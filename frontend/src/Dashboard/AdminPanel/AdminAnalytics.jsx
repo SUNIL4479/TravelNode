@@ -79,7 +79,7 @@ const AdminAnalytics = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 text-center md:text-left">
           <span className="section-overline">Platform Insights</span>
-          <h1 className="text-display-md text-text-primary mt-2 flex items-center justify-center md:justify-start gap-3">
+          <h1 className="text-display-sm md:text-display-md text-text-primary mt-2 flex items-center justify-center md:justify-start gap-3">
             <FiActivity className="text-accent" /> Analytics Dashboard
           </h1>
           <p className="text-body-sm text-text-secondary mt-2">Interactive trends and advanced platform performance mapping.</p>
@@ -93,13 +93,13 @@ const AdminAnalytics = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
              <div className="card p-6 bg-gradient-to-br from-white to-sky-50 border-sky-100 hover:shadow-cta transition-shadow">
                 <p className="text-caption text-sky-800 font-bold uppercase tracking-wider mb-2">Total System Revenue</p>
-                <div className="text-4xl font-bold text-sky-600">₹{data.revenueAnalytics?.totalRevenue?.toLocaleString()}</div>
+                <div className="text-3xl sm:text-4xl font-bold text-sky-600">₹{data.revenueAnalytics?.totalRevenue?.toLocaleString()}</div>
                 <p className="text-sm text-sky-700/70 mt-2">All paid bookings</p>
              </div>
              
              <div className="card p-6 bg-gradient-to-br from-white to-amber-50 border-amber-100 hover:shadow-card-hover transition-shadow">
                 <p className="text-caption text-amber-800 font-bold uppercase tracking-wider mb-2">Total Mediator Payouts</p>
-                <div className="text-4xl font-bold text-amber-600">₹{data.revenueAnalytics?.totalMediatorPayouts?.toLocaleString()}</div>
+                <div className="text-3xl sm:text-4xl font-bold text-amber-600">₹{data.revenueAnalytics?.totalMediatorPayouts?.toLocaleString()}</div>
                 <p className="text-sm text-amber-700/70 mt-2">95% of mediator fees</p>
              </div>
 
@@ -107,7 +107,7 @@ const AdminAnalytics = () => {
                 <p className="text-caption text-forest-800 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
                   <FiTrendingUp /> Platform Profit
                 </p>
-                <div className="text-4xl font-bold text-forest-700">₹{data.revenueAnalytics?.platformProfit?.toLocaleString()}</div>
+                <div className="text-3xl sm:text-4xl font-bold text-forest-700">₹{data.revenueAnalytics?.platformProfit?.toLocaleString()}</div>
                 <p className="text-sm text-forest-800/70 mt-2">Full Tour Revenue + 5% Admin Commission</p>
              </div>
           </div>

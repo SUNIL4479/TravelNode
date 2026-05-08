@@ -80,7 +80,7 @@ const MediatorAnalytics = () => {
           <p className="text-caption text-forest-800 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
             <FiDollarSign /> Net Earnings
           </p>
-          <div className="text-4xl font-bold text-forest-700">₹{data.earningsSummary?.totalNetEarnings?.toLocaleString()}</div>
+          <div className="text-3xl sm:text-4xl font-bold text-forest-700">₹{data.earningsSummary?.totalNetEarnings?.toLocaleString()}</div>
           <p className="text-sm text-forest-800/70 mt-2 font-semibold">Take-home pay (95% of your fee)</p>
         </div>
 
@@ -130,9 +130,9 @@ const MediatorAnalytics = () => {
         <div className="flex flex-col gap-6">
           <div className="card p-6 shadow-sm bg-white">
              <h3 className="text-body-lg font-bold text-text-primary mb-4">Trip Distribution</h3>
-             <div className="flex items-center">
+             <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-0">
                 {tripDistributionData.length > 0 ? (
-                  <div className="h-44 w-1/2">
+                  <div className="h-44 w-full sm:w-1/2">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
@@ -155,7 +155,7 @@ const MediatorAnalytics = () => {
                 ) : (
                   <p className="text-text-muted text-sm italic w-1/2">No trips recorded.</p>
                 )}
-                <div className="w-1/2 flex flex-col gap-3 pl-4 border-l border-border-light">
+                <div className="w-full sm:w-1/2 flex flex-col gap-3 pl-0 sm:pl-4 border-l-0 sm:border-l border-border-light">
                    <div className="flex items-center gap-2 text-sm text-text-primary font-semibold">
                       <div className="w-3 h-3 rounded-full bg-forest-600"></div> Completed: {data.tripPerformance?.completedTrips || 0}
                    </div>
